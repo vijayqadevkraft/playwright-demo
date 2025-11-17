@@ -25,7 +25,19 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
   
   // Reporter to use
-  reporter: 'html',
+  reporter: [
+    ['html', {
+      open: 'never',
+      outputFolder: 'playwright-report'
+    }],
+    ['json', {
+      outputFile: 'test-results/results.json'
+    }],
+    ['junit', {
+      outputFile: 'test-results/junit.xml'
+    }],
+    ['list']
+  ],
   
   // Shared settings for all the projects below
   use: {
