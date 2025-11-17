@@ -8,6 +8,7 @@ A simple Playwright test automation project demonstrating end-to-end testing cap
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Project Structure](#project-structure)
+- - [Page Object Model](#page-object-model)
 - [Running Tests](#running-tests)
 - [Configuration](#configuration)
 - [Example Tests](#example-tests)
@@ -61,12 +62,64 @@ This will download Chromium, Firefox, and WebKit browsers.
 ```
 playwright-demo/
 ├── tests/
+|   ├── pom-example.spec.js  # POM test examples
 │   └── example.spec.js      # Example test suite
+├── pages/                    # Page Object Models
+|   ├── BasePage.js          # Base page class with common methods
+|   ├── PlaywrightHomePage.js # Playwright homepage page object
+|   └── GetStartedPage.js     # Get Started page object
 ├── playwright.config.js      # Playwright configuration
 ├── package.json              # Project dependencies
 ├── .gitignore               # Git ignore file
 └── README.md                # This file
 ```
+
+## 📚 Page Object Model
+
+This project implements the Page Object Model (POM) design pattern to create maintainable and reusable test code.
+
+### What is POM?
+
+Page Object Model is a design pattern that:
+- Creates an object repository for web UI elements
+- Separates test logic from page-specific code
+- Reduces code duplication
+- Makes tests easier to maintain
+
+### Structure
+
+#### BasePage.js
+Base class containing common methods used across all page objects:
+- `navigate(url)` - Navigate to a URL
+- `click(locator)` - Click an element
+- `waitForElement(locator)` - Wait for element to be visible
+- `getTextContent(locator)` - Get element text
+- `isVisible(locator)` - Check element visibility
+- `getTitle()` - Get page title
+
+#### Page-Specific Classes
+Each page extends BasePage and adds page-specific locators and methods:
+- **PlaywrightHomePage.js** - Playwright homepage interactions
+- **GetStartedPage.js** - Get Started documentation page
+
+### Usage Example
+
+```javascript
+const PlaywrightHomePage = require('../pages/PlaywrightHomePage');
+
+test('homepage test', async ({ page }) => {
+  const homePage = new PlaywrightHomePage(page);
+  await homePage.open();
+  await homePage.clickGetStarted();
+});
+```
+
+### Benefits
+
+✅ **Maintainability** - Changes to UI only require updates to page objects  
+✅ **Reusability** - Page objects can be used across multiple tests  
+✅ **Readability** - Tests are more readable and self-documenting  
+✅ **Separation of Concerns** - Test logic separated from page interactions
 
 ## ▶️ Running Tests
 
