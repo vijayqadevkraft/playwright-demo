@@ -1,0 +1,23 @@
+{
+  "name": "playwright-demo",
+  "version": "1.0.0",
+  "description": "A simple Playwright test automation project",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "report": "npx playwright show-report"
+  },
+  "keywords": [
+    "playwright",
+    "testing",
+    "automation",
+    "e2e"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}
